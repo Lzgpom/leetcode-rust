@@ -1,5 +1,2 @@
-#[macro_use]
-pub mod util;
-
-pub mod solution;
-pub mod problem;
+#![allow(dead_code)]
+pub mod _1_two_sum;
