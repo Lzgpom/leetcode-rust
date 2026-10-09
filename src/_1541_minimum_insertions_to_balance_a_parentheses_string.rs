@@ -3,29 +3,23 @@
 
 impl Solution {
     pub fn min_insertions(s: String) -> i32 {
+        let mut iterator = s.chars().peekable();
         let mut level = 0;
         let mut result = 0;
 
-        for char in s.chars() {
+        while let Some(char) = iterator.next() {
             match char {
-                '(' => {
-                    level += 2;
-
-                    if level % 2 == 1 {
+                '(' => level += 2,
+                _ => {
+                    if iterator.next_if_eq(&')').is_none() {
                         result += 1;
-                        level -= 1;
+                    }
+                    match level {
+                        0 => result += 1,
+                        _ => level -= 2,
                     }
                 }
-                ')' => {
-                    level -= 1;
-
-                    if level < 0 {
-                        result += 1;
-                        level = 1;
-                    }
-                }
-                _ => (),
-            };
+            }
         }
 
         return result + level;
