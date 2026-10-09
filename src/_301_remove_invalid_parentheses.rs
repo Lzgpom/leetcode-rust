@@ -186,8 +186,8 @@ mod tests {
     use rstest::rstest;
 
     #[rstest]
-    #[case("()())()", vec!["(())()".into(),"()()()".into()])]
-    #[case("(a)())()", vec!["(a())()".into(),"(a)()()".into()])]
+    #[case("()())()", vec!["()()()".into(),"(())()".into()])]
+    #[case("(a)())()", vec!["(a)()()".into(),"(a())()".into()])]
     #[case(")(", vec!["".into()])]
     fn case(#[case] s: String, #[case] expected: Vec<String>) {
         let actual = Solution::remove_invalid_parentheses(s);
