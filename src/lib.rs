@@ -7,6 +7,7 @@ pub mod _2333_minimum_sum_of_squared_difference;
 pub mod _2778_sum_of_squares_of_special_elements;
 pub mod _2897_apply_operations_on_array_to_maximize_sum_of_squares;
 pub mod _301_remove_invalid_parentheses;
+pub mod _3727_maximum_alternating_sum_of_squares;
 pub mod _678_valid_parenthesis_string;
 pub mod _780_reaching_points;
 pub mod _856_score_of_parentheses;
