@@ -2,6 +2,7 @@
 pub mod _1021_remove_outermost_parentheses;
 pub mod _1541_minimum_insertions_to_balance_a_parentheses_string;
 pub mod _1_two_sum;
+pub mod _2089_find_target_indices_after_sorting_array;
 pub mod _22_generate_parentheses;
 pub mod _2333_minimum_sum_of_squared_difference;
 pub mod _2778_sum_of_squares_of_special_elements;
