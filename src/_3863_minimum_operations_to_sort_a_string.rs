@@ -3,52 +3,54 @@
 
 impl Solution {
     pub fn min_operations(s: String) -> i32 {
+        if s.is_empty() {
+            return 0;
+        }
+
         let chars = s.as_bytes();
         let len = chars.len();
 
-        if len <= 1 {
-            return 0;
-        } else if len == 2 {
-            if chars.is_sorted() {
-                return 0;
-            } else {
-                return -1;
-            }
-        }
-
-        let mut mid_sorted = true;
         let first = chars[0];
         let last = chars[len - 1];
-        let mut prev = chars[1];
-        let mut mid_min = chars[1];
-        let mut mid_max = chars[1];
 
-        for &char in &chars[1..len - 1] {
-            if mid_sorted && prev > char {
-                mid_sorted = false;
+        let mut sorted = true;
+        let mut min = chars[0];
+        let mut max = chars[0];
+
+        let mut mid_min = b'z';
+        let mut mid_max = b'a';
+        for i in 1..len {
+            let char = chars[i];
+            if sorted && char < chars[i - 1] {
+                sorted = false;
             }
 
-            prev = char;
-            mid_min = mid_min.min(char);
-            mid_max = mid_max.max(char);
+            min = min.min(char);
+            max = max.max(char);
+
+            if i < len - 1 {
+                mid_min = mid_min.min(char);
+                mid_max = mid_max.max(char)
+            }
         }
 
-        if first <= mid_min && last >= mid_max && first <= last {
-            if !mid_sorted {
-                return 1;
-            } else {
-                return 0;
-            }
-        } else if (first > mid_min && last >= mid_max) || (first <= mid_min && last < mid_max) {
-            if first > last {
-                return 2;
-            }
+        if sorted {
+            return 0;
+        }
+
+        if len == 2 {
+            return -1;
+        }
+
+        if first == min || last == max {
             return 1;
-        } else if last < mid_min && last < first && first > mid_max {
-            return 3;
-        } else {
-            return 2;
         }
+
+        if first == max && last == min && min != mid_min && max != mid_max {
+            return 3;
+        }
+
+        return 2;
     }
 }
 
@@ -69,6 +71,7 @@ mod tests {
     #[case("cab", 2)]
     #[case("edc", 3)]
     #[case("edbc", 2)]
+    #[case("jgg", 2)]
     fn case(#[case] s: String, #[case] expected: i32) {
         let actual = Solution::min_operations(s);
         assert_eq!(actual, expected);
