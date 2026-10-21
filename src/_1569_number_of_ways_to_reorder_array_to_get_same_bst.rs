@@ -3,64 +3,11 @@
 
 const MODULO: i64 = 1000000007;
 
-#[derive(Debug)]
-struct Node {
-    value: i32,
-    pub count: usize,
-    pub left: Option<Box<Node>>,
-    pub right: Option<Box<Node>>,
-}
-
-impl Node {
-    pub fn tree(values: &Vec<i32>) -> Option<Node> {
-        let mut root = match values.get(0) {
-            Some(value) => Node::new(*value),
-            None => return None,
-        };
-
-        for num in values.iter().skip(1) {
-            root.insert(*num);
-        }
-
-        return Some(root);
-    }
-
-    fn new(value: i32) -> Node {
-        Node {
-            value,
-            count: 1,
-            left: None,
-            right: None,
-        }
-    }
-
-    pub fn insert(&mut self, value: i32) {
-        self.count += 1;
-
-        if value < self.value {
-            match self.left.as_mut() {
-                Some(left) => left.insert(value),
-                None => self.left = Some(Box::new(Self::new(value))),
-            }
-        } else if value > self.value {
-            match self.right.as_mut() {
-                Some(right) => right.insert(value),
-                None => self.right = Some(Box::new(Self::new(value))),
-            }
-        }
-    }
-}
-
 impl Solution {
     pub fn num_of_ways(nums: Vec<i32>) -> i32 {
-        let root = match Node::tree(&nums) {
-            Some(node) => node,
-            None => return 1,
-        };
-
         let table = Self::pascal_table(nums.len());
 
-        return Self::ways_in_node(&Some(Box::new(root)), &table) - 1;
+        return Self::dfs(nums, &table) - 1;
     }
 
     fn pascal_table(n: usize) -> Vec<Vec<i64>> {
@@ -80,23 +27,19 @@ impl Solution {
         return table;
     }
 
-    fn ways_in_node(node: &Option<Box<Node>>, table: &Vec<Vec<i64>>) -> i32 {
-        let node = match node {
-            Some(value) => value,
-            None => return 1,
-        };
-
-        if node.count == 1 {
+    fn dfs(tree: Vec<i32>, table: &Vec<Vec<i64>>) -> i32 {
+        if tree.len() < 3 {
             return 1;
         }
 
-        let left = Self::ways_in_node(&node.left, table) as i64;
-        let right = Self::ways_in_node(&node.right, table) as i64;
+        let root = tree[0];
+        let (left, right): (Vec<i32>, Vec<i32>) = tree.iter().skip(1).partition(|num| **num < root);
+        let left_count = left.len();
+        let left_ways = Self::dfs(left, table) as i64;
+        let right_ways = Self::dfs(right, table) as i64;
+        let p = table[tree.len() - 1][left_count];
+        let ways = (((left_ways * right_ways) % MODULO) * p) % MODULO;
 
-        let left_count = node.left.as_ref().map(|it| it.count).unwrap_or(0);
-        let total_count = left_count + node.right.as_ref().map(|it| it.count).unwrap_or(0);
-        let combinations = table[total_count][left_count];
-        let ways = (((left * right) % MODULO) * combinations) % MODULO;
         return ways as i32;
     }
 }
