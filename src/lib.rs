@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 pub mod _1021_remove_outermost_parentheses;
 pub mod _1541_minimum_insertions_to_balance_a_parentheses_string;
+pub mod _1569_number_of_ways_to_reorder_array_to_get_same_bst;
 pub mod _1_two_sum;
 pub mod _2089_find_target_indices_after_sorting_array;
 pub mod _22_generate_parentheses;
