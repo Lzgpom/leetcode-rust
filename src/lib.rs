@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 pub mod _1021_remove_outermost_parentheses;
+pub mod _1111_maximum_nesting_depth_of_two_valid_parentheses_strings;
 pub mod _1541_minimum_insertions_to_balance_a_parentheses_string;
 pub mod _1569_number_of_ways_to_reorder_array_to_get_same_bst;
 pub mod _1_two_sum;
