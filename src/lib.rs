@@ -11,6 +11,7 @@ pub mod _2897_apply_operations_on_array_to_maximize_sum_of_squares;
 pub mod _2913_subarrays_distinct_element_sum_of_squares_i;
 pub mod _301_remove_invalid_parentheses;
 pub mod _3551_minimum_swaps_to_sort_by_digit_sum;
+pub mod _3644_maximum_k_to_sort_a_permutation;
 pub mod _3723_maximize_sum_of_squares_of_digits;
 pub mod _3727_maximum_alternating_sum_of_squares;
 pub mod _3863_minimum_operations_to_sort_a_string;
