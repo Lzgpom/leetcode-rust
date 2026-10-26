@@ -51,8 +51,8 @@ mod tests {
     use rstest::rstest;
 
     #[rstest]
-    #[case("(()())", vec![0,1,1,1,1,0])]
-    #[case("()(())()", vec![0,0,0,1,1,0,1,1])]
+    #[case("(()())", vec![1,0,0,0,0,1])]
+    #[case("()(())()", vec![1,1,1,0,0,1,1,1])]
     fn case(#[case] seq: String, #[case] expected: Vec<i32>) {
         let actual = Solution::max_depth_after_split(seq);
         assert_eq!(actual, expected);
