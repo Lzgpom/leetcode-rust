@@ -7,6 +7,7 @@ pub mod _1_two_sum;
 pub mod _2089_find_target_indices_after_sorting_array;
 pub mod _22_generate_parentheses;
 pub mod _2333_minimum_sum_of_squared_difference;
+pub mod _2409_count_days_spent_together;
 pub mod _2778_sum_of_squares_of_special_elements;
 pub mod _2897_apply_operations_on_array_to_maximize_sum_of_squares;
 pub mod _2913_subarrays_distinct_element_sum_of_squares_i;
