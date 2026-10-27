@@ -21,6 +21,7 @@ pub mod _3727_maximum_alternating_sum_of_squares;
 pub mod _3863_minimum_operations_to_sort_a_string;
 pub mod _3886_sum_of_sortable_integers;
 pub mod _3942_minimum_operations_to_sort_a_permutation;
+pub mod _3963_create_grid_with_exactly_one_path;
 pub mod _678_valid_parenthesis_string;
 pub mod _780_reaching_points;
 pub mod _856_score_of_parentheses;
