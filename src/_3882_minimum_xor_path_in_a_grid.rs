@@ -1,69 +1,43 @@
 //! Solution for https://leetcode.com/problems/minimum-xor-path-in-a-grid
 //! 3882. Minimum XOR Path in a Grid
 
-use std::collections::VecDeque;
-
-struct Position {
-    x: usize,
-    y: usize,
-    value: i32,
-}
-
-impl Position {
-    fn is_at_end(&self, m: usize, n: usize) -> bool {
-        return self.x == m - 1 && self.y == n - 1;
-    }
-
-    fn can_go_down(&self, m: usize) -> bool {
-        return self.x < m - 1;
-    }
-
-    fn can_go_right(&self, n: usize) -> bool {
-        return self.y < n - 1;
-    }
-}
+const MAX_VALUE: usize = 1024;
 
 impl Solution {
     pub fn min_cost(grid: Vec<Vec<i32>>) -> i32 {
         let m = grid.len();
         let n = grid[0].len();
 
-        let mut min_path = i32::MAX;
-        let mut queue = VecDeque::new();
-        queue.push_front(Position {
-            x: 0,
-            y: 0,
-            value: grid[0][0],
-        });
+        let mut dp = vec![vec![vec![false; MAX_VALUE]; n]; m];
+        dp[0][0][grid[0][0] as usize] = true;
 
-        while let Some(position) = queue.pop_back() {
-            if position.is_at_end(m, n) {
-                min_path = min_path.min(position.value);
-                continue;
-            }
-
-            if position.can_go_down(m) {
-                let x = position.x + 1;
-                let y = position.y;
-                queue.push_front(Position {
-                    x,
-                    y,
-                    value: position.value ^ grid[x][y],
-                });
-            }
-
-            if position.can_go_right(n) {
-                let x = position.x;
-                let y = position.y + 1;
-                queue.push_front(Position {
-                    x,
-                    y,
-                    value: position.value ^ grid[x][y],
-                });
+        for x in 0..m {
+            for y in 0..n {
+                for (xor_value, _) in dp[x][y]
+                    .clone()
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, flag)| **flag)
+                {
+                    if x < m - 1 {
+                        let value = grid[x + 1][y] as usize;
+                        dp[x + 1][y][xor_value ^ value] = true;
+                    }
+                    if y < n - 1 {
+                        let value = grid[x][y + 1] as usize;
+                        dp[x][y + 1][xor_value ^ value] = true;
+                    }
+                }
             }
         }
 
-        return min_path;
+        return dp[m - 1][n - 1]
+            .iter()
+            .enumerate()
+            .filter(|(_, flag)| **flag)
+            .map(|(n, _)| n as i32)
+            .min()
+            .unwrap();
     }
 }
 
