@@ -4,6 +4,7 @@ pub mod _1111_maximum_nesting_depth_of_two_valid_parentheses_strings;
 pub mod _1254_number_of_closed_islands;
 pub mod _1541_minimum_insertions_to_balance_a_parentheses_string;
 pub mod _1569_number_of_ways_to_reorder_array_to_get_same_bst;
+pub mod _1614_maximum_nesting_depth_of_the_parentheses;
 pub mod _1_two_sum;
 pub mod _2089_find_target_indices_after_sorting_array;
 pub mod _22_generate_parentheses;
