@@ -19,6 +19,7 @@ pub mod _3619_count_islands_with_total_value_divisible_by_k;
 pub mod _3644_maximum_k_to_sort_a_permutation;
 pub mod _3723_maximize_sum_of_squares_of_digits;
 pub mod _3727_maximum_alternating_sum_of_squares;
+pub mod _3736_minimum_moves_to_equal_array_elements_iii;
 pub mod _3863_minimum_operations_to_sort_a_string;
 pub mod _3882_minimum_xor_path_in_a_grid;
 pub mod _3886_sum_of_sortable_integers;
