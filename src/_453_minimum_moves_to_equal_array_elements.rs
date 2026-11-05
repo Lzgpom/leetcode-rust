@@ -3,14 +3,8 @@
 
 impl Solution {
     pub fn min_moves(nums: Vec<i32>) -> i32 {
-        let mut nums = nums;
-        nums.sort_unstable_by(|a, b| b.cmp(a));
-
-        let mut sum = 0;
-        for i in 0..nums.len() - 1 {
-            sum += (nums[i] - nums[i + 1]) * (i as i32 + 1)
-        }
-        return sum;
+        let min = nums.iter().min().unwrap_or(&0);
+        return nums.iter().map(|num| num - min).sum();
     }
 }
 
