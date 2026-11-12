@@ -26,6 +26,7 @@ pub mod _3693_climbing_stairs_ii;
 pub mod _3723_maximize_sum_of_squares_of_digits;
 pub mod _3727_maximum_alternating_sum_of_squares;
 pub mod _3736_minimum_moves_to_equal_array_elements_iii;
+pub mod _3789_minimum_cost_to_acquire_required_items;
 pub mod _3863_minimum_operations_to_sort_a_string;
 pub mod _3882_minimum_xor_path_in_a_grid;
 pub mod _3886_sum_of_sortable_integers;
