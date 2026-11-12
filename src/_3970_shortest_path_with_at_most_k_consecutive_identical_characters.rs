@@ -1,95 +1,67 @@
 //! Solution for https://leetcode.com/problems/shortest-path-with-at-most-k-consecutive-identical-characters
 //! 3970. Shortest Path With At Most K Consecutive Identical Characters
 
-use std::collections::{HashSet, VecDeque};
+use std::{cmp::Reverse, collections::BinaryHeap};
 
 use itertools::Itertools;
 
-struct Path {
-    node: i32,
-    weight: i32,
-    char: u8,
-    char_count: i32,
-    visited: HashSet<i32>,
-}
-
-impl Path {
-    fn new(node: i32, weight: i32, char: u8, char_count: i32, visited: &HashSet<i32>) -> Self {
-        let mut visited = visited.clone();
-        visited.insert(node);
-
-        Self {
-            node,
-            weight,
-            char,
-            char_count,
-            visited,
-        }
-    }
-}
-
 struct Edge {
-    node: i32,
+    node: usize,
     weight: i32,
 }
 
 impl Edge {
-    fn new(node: i32, weight: i32) -> Self {
+    fn new(node: usize, weight: i32) -> Self {
         Self { node, weight }
     }
 }
 
 impl Solution {
     pub fn shortest_path(n: i32, edges: Vec<Vec<i32>>, labels: String, k: i32) -> i32 {
+        let n = n as usize;
+        let k = k as usize;
         let chars = labels.as_bytes();
         let graph = edges
             .iter()
-            .map(|edge| (edge[0], Edge::new(edge[1], edge[2])))
+            .map(|edge| (edge[0] as usize, Edge::new(edge[1] as usize, edge[2])))
             .into_group_map();
 
-        let mut min_result: Option<i32> = None;
-        let mut queue = VecDeque::new();
-        queue.push_back(Path::new(0, 0, chars[0], 1, &HashSet::new()));
+        let mut heap: BinaryHeap<Reverse<(i32, usize, usize)>> = BinaryHeap::new();
+        let mut distances = vec![vec![i32::MAX; k + 1]; n];
+        distances[0][1] = 0;
+        heap.push(Reverse((0, 0, 1)));
 
-        while let Some(path) = queue.pop_front() {
-            if path.node == n - 1 {
-                min_result = Some(min_result.unwrap_or(i32::MAX).min(path.weight));
+        while let Some(Reverse((distance, node, count))) = heap.pop() {
+            if distance > distances[node][count] {
                 continue;
             }
 
-            if path.weight > min_result.unwrap_or(i32::MAX) {
-                continue;
+            if node == n - 1 {
+                return distance;
             }
 
-            if let Some(edges) = graph.get(&path.node) {
+            if let Some(edges) = graph.get(&node) {
                 for edge in edges {
-                    if path.visited.contains(&edge.node) {
-                        continue;
-                    }
-
-                    let next_char = chars[edge.node as usize];
-                    let char_count = if path.char == next_char {
-                        path.char_count + 1
+                    let new_count = if chars[edge.node] == chars[node] {
+                        count + 1
                     } else {
                         1
                     };
 
-                    if char_count > k {
+                    if new_count > k {
                         continue;
                     }
 
-                    queue.push_back(Path::new(
-                        edge.node,
-                        path.weight + edge.weight,
-                        next_char,
-                        char_count,
-                        &path.visited,
-                    ));
+                    let new_distance = distance + edge.weight;
+                    if distances[edge.node][new_count] > new_distance {
+                        distances[edge.node][new_count] = new_distance;
+                        heap.push(Reverse((new_distance, edge.node, new_count)));
+                    }
                 }
             }
         }
 
-        return min_result.unwrap_or(-1);
+        return -1;
     }
 }
 
