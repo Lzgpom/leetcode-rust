@@ -33,6 +33,7 @@ pub mod _3882_minimum_xor_path_in_a_grid;
 pub mod _3886_sum_of_sortable_integers;
 pub mod _3942_minimum_operations_to_sort_a_permutation;
 pub mod _3963_create_grid_with_exactly_one_path;
+pub mod _3970_shortest_path_with_at_most_k_consecutive_identical_characters;
 pub mod _453_minimum_moves_to_equal_array_elements;
 pub mod _462_minimum_moves_to_equal_array_elements_ii;
 pub mod _678_valid_parenthesis_string;
