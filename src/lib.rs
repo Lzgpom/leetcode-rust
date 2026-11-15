@@ -37,6 +37,7 @@ pub mod _3963_create_grid_with_exactly_one_path;
 pub mod _3970_shortest_path_with_at_most_k_consecutive_identical_characters;
 pub mod _453_minimum_moves_to_equal_array_elements;
 pub mod _462_minimum_moves_to_equal_array_elements_ii;
+pub mod _480_sliding_window_median;
 pub mod _678_valid_parenthesis_string;
 pub mod _689_maximum_sum_of_3_non_overlapping_subarrays;
 pub mod _780_reaching_points;
