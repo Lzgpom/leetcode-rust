@@ -43,3 +43,4 @@ pub mod _689_maximum_sum_of_3_non_overlapping_subarrays;
 pub mod _780_reaching_points;
 pub mod _856_score_of_parentheses;
 pub mod _921_minimum_add_to_make_parentheses_valid;
+pub mod _295_find_median_from_data_stream;
